@@ -1,30 +1,55 @@
 <template>
-	<div id="app">
-		<h1>Simple Weight Tracker</h1>
-		<input type="number" min="0" v-model="weight">
-		<button type="button" name="button" @click="addRecord()">Hinzufügen</button>
-		<ul>
-			<li v-for="(record, index) in records" :key="index">
-				{{record.weight}} - {{record.date | formatDate}}
-			</li>
-		</ul>
+	<div class="page-container">
+		<md-app md-waterfall md-mode="fixed">
+			<md-app-toolbar class="md-primary">
+				<span class="md-title">Simple Weight Tracker</span>
+			</md-app-toolbar>
+			<md-app-content>
+				<md-card>
+					<md-card-header>
+						<div class="md-title">Add new Record</div>
+					</md-card-header>
+					<md-card-content>
+						<md-field>
+							<label>Weight</label>
+							<md-input v-model="weight" type="number"></md-input>
+						</md-field>
+						<md-button class="md-raised md-primary" @click="addRecord">Add Record</md-button>
+					</md-card-content>
+				</md-card>
+				<RecordsList :records="records" style="margin-top: 24px"/>
+			</md-app-content>
+		</md-app>
 	</div>
 </template>
 
 <script>
+import RecordsList from './components/RecordsList.vue';
+
 export default {
 	name: 'App',
+	components: {
+		RecordsList,
+	},
 	data() {
 		return {
 			records: [],
-			weight: 0,
+			weight: undefined,
+			showNewRecordDialog: false,
+			showNumberError: false,
 		};
 	},
 	methods: {
 		addRecord() {
-			const { weight, records } = this;
+			let { weight, records } = this;
 			const date = Date.now();
+			weight = parseFloat(weight);
+			if(isNaN(weight)){
+				this.showNumberError = true;
+				return;
+			}
 			records.push({ weight, date });
+			this.weight = undefined;
 		},
 	},
 	mounted() {
