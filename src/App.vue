@@ -1,28 +1,35 @@
 <template>
 	<div id="app">
-		<h1>Simple Weight Tracker</h1>
-		<input type="number" min="0" v-model="weight">
-		<button type="button" name="button" @click="addRecord()">Hinzufügen</button>
-		<ul>
-			<li v-for="(record, index) in records" :key="index">
-				{{record.weight}} - {{record.date | formatDate}}
-			</li>
-		</ul>
+		<Header @openAddRecordModal="showAddRecordModal = true"/>
+		<div class="container">
+			<RecordsList :records="records"/>
+		</div>
+		<AddRecordModal :active.sync="showAddRecordModal" @addRecord="addRecord"/>
 	</div>
 </template>
 
 <script>
+import Header from '@/components/Header.vue';
+import RecordsList from '@/components/RecordsList.vue';
+import AddRecordModal from '@/components/AddRecordModal.vue';
+
 export default {
 	name: 'App',
+	components: {
+		Header,
+		RecordsList,
+		AddRecordModal,
+	},
 	data() {
 		return {
 			records: [],
-			weight: 0,
+			weight: undefined,
+			showAddRecordModal: false,
 		};
 	},
 	methods: {
-		addRecord() {
-			const { weight, records } = this;
+		addRecord(weight) {
+			const { records } = this;
 			const date = Date.now();
 			records.push({ weight, date });
 		},
@@ -39,3 +46,9 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+#app{
+	margin-top: 5rem!important;
+}
+</style>
