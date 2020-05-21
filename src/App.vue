@@ -2,6 +2,7 @@
 	<div id="app">
 		<Header @openAddRecordModal="showAddRecordModal = true"/>
 		<div class="container">
+			<RecordsChart v-if="records.length > 1" :records="records"/>
 			<RecordsList :records="records"/>
 		</div>
 		<AddRecordModal :active.sync="showAddRecordModal" @addRecord="addRecord"/>
@@ -11,6 +12,7 @@
 <script>
 import Header from '@/components/Header.vue';
 import RecordsList from '@/components/RecordsList.vue';
+import RecordsChart from '@/components/RecordsChart.vue';
 import AddRecordModal from '@/components/AddRecordModal.vue';
 
 export default {
@@ -18,6 +20,7 @@ export default {
 	components: {
 		Header,
 		RecordsList,
+		RecordsChart,
 		AddRecordModal,
 	},
 	data() {
