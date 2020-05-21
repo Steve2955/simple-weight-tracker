@@ -3,9 +3,10 @@
 		<Header @openAddRecordModal="showAddRecordModal = true"/>
 		<div class="container">
 			<RecordsChart v-if="records.length > 1" :records="records"/>
-			<RecordsList :records="records" @removeRecord="removeRecord"/>
+			<RecordsList :records="records" @removeRecord="removeRecord" @editRecord="editRecord"/>
 		</div>
 		<AddRecordModal :active.sync="showAddRecordModal" @addRecord="addRecord"/>
+		<EditRecordModal :active.sync="showEditRecordModal" :record="record" @updateRecord="updateRecord"/>
 	</div>
 </template>
 
@@ -14,6 +15,7 @@ import Header from '@/components/Header.vue';
 import RecordsList from '@/components/RecordsList.vue';
 import RecordsChart from '@/components/RecordsChart.vue';
 import AddRecordModal from '@/components/AddRecordModal.vue';
+import EditRecordModal from '@/components/EditRecordModal.vue';
 
 export default {
 	name: 'App',
@@ -22,12 +24,15 @@ export default {
 		RecordsList,
 		RecordsChart,
 		AddRecordModal,
+		EditRecordModal,
 	},
 	data() {
 		return {
 			records: [],
 			weight: undefined,
+			record: undefined,
 			showAddRecordModal: false,
+			showEditRecordModal: false,
 		};
 	},
 	methods: {
@@ -36,10 +41,21 @@ export default {
 			const date = Date.now();
 			records.push({ weight, date });
 		},
+		editRecord(record){
+			this.record = Object.assign({}, record); // copy-by-value
+			this.showEditRecordModal = true;
+		},
+		updateRecord(record){
+			const { records } = this;
+			const i = records.findIndex(({date}) => date === record.date);
+			this.$set(records, i, record);
+			this.record = undefined;
+		},
 		removeRecord(record) {
-			const i = this.records.findIndex(({date}) => date === record.date);
+			let { records } = this;
+			const i = records.findIndex(({date}) => date === record.date);
 			if(i === -1) return;
-			this.records.splice(i,1);
+			records.splice(i,1);
 		}
 	},
 	mounted() {

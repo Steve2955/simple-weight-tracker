@@ -2,7 +2,7 @@
 	<div class="card mb-3">
 		<div v-if="records.length" class="card-body">
 			<div v-for="(record, index) in records" :key="index">
-				<RecordListItem :record="record" @removeRecord="$emit('removeRecord', record)"/>
+				<RecordListItem :record="record" @removeRecord="$emit('removeRecord', record)" @editRecord="$emit('editRecord', record)"/>
 				<hr v-if="index !== records.length-1"/>
 			</div>
 		</div>

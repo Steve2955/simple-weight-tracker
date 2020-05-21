@@ -2,7 +2,8 @@
 	<div class="d-flex">
 		<span><strong>{{record.weight}} kg</strong></span>
 		<span class="ml-2"><small>{{record.date | formatDate}}</small></span>
-		<span class="material-icons ml-auto mr-2" @click="$emit('removeRecord', record)">remove_circle</span>
+		<span class="material-icons ml-auto mr-2" @click="$emit('removeRecord', record)">remove_circle_outline</span>
+		<span class="material-icons mx-2" @click="$emit('editRecord', record)">create</span>
 	</div>
 </template>
 
