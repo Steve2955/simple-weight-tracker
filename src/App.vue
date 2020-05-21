@@ -3,7 +3,7 @@
 		<Header @openAddRecordModal="showAddRecordModal = true"/>
 		<div class="container">
 			<RecordsChart v-if="records.length > 1" :records="records"/>
-			<RecordsList :records="records"/>
+			<RecordsList :records="records" @removeRecord="removeRecord"/>
 		</div>
 		<AddRecordModal :active.sync="showAddRecordModal" @addRecord="addRecord"/>
 	</div>
@@ -36,6 +36,11 @@ export default {
 			const date = Date.now();
 			records.push({ weight, date });
 		},
+		removeRecord(record) {
+			const i = this.records.findIndex(({date}) => date === record.date);
+			if(i === -1) return;
+			this.records.splice(i,1);
+		}
 	},
 	mounted() {
 		if (localStorage.records) {
