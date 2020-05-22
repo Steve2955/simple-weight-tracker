@@ -1,9 +1,12 @@
 import Vue from 'vue';
+import UUID from 'vue-uuid';
 import App from './App.vue';
 import './assets/app.scss';
 // eslint-disable-next-line
 import $ from 'jquery';
 import 'bootstrap';
+
+Vue.use(UUID);
 
 Vue.config.productionTip = false;
 

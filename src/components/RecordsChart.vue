@@ -42,9 +42,6 @@ export default {
 							parser: 'MM/DD/YYYY HH:mm',
 							tooltipFormat: 'll HH:mm',
 						},
-						ticks: {
-							source: 'labels',
-						},
 						scaleLabel: {
 							display: false,
 						}
@@ -57,7 +54,7 @@ export default {
 				},
 			},
 		};
-		
+
 		// eslint-disable-next-line
 		this.chart = new Chart(ctx, this.config);
 	},

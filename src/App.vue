@@ -37,34 +37,48 @@ export default {
 	},
 	methods: {
 		addRecord(weight) {
-			const { records } = this;
+			let { records } = this;
 			const date = Date.now();
-			records.push({ weight, date });
+			const id = this.$uuid.v1();
+			records.push({ weight, date, id });
+			records = records.sort((a, b) => a.date - b.date);
 		},
 		editRecord(record){
 			this.record = Object.assign({}, record); // copy-by-value
 			this.showEditRecordModal = true;
 		},
 		updateRecord(record){
-			const { records } = this;
-			const i = records.findIndex(({date}) => date === record.date);
-			this.$set(records, i, record);
+			this._records = this._records.map(r => (r.id === record.id)?record:r);
 			this.record = undefined;
 		},
 		removeRecord(record) {
-			let { records } = this;
-			const i = records.findIndex(({date}) => date === record.date);
+			let { _records } = this;
+			const i = _records.findIndex(({id}) => id === record.id);
 			if(i === -1) return;
-			records.splice(i,1);
+			_records.splice(i,1);
 		}
 	},
 	mounted() {
 		if (localStorage.records) {
-			this.records = JSON.parse(localStorage.records);
+			this._records = JSON.parse(localStorage.records);
+		}
+	},
+	computed: {
+		_records: {
+			get(){
+				return this.records;
+			},
+			set(newRecords){
+				newRecords = newRecords.map(record => {
+					if(!(record.date instanceof Date)) record.date = new Date(record.date);
+					return record;
+				});
+				this.records = newRecords.sort((a,b) => b.date - a.date);
+			}
 		}
 	},
 	watch: {
-		records(newRecords) {
+		_records(newRecords) {
 			localStorage.records = JSON.stringify(newRecords);
 		},
 	},
