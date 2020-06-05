@@ -5,6 +5,7 @@ import './assets/app.scss';
 // eslint-disable-next-line
 import $ from 'jquery';
 import 'bootstrap';
+import './registerServiceWorker'
 
 Vue.use(UUID);
 
