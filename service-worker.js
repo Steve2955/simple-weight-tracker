@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/simple-weight-tracker/precache-manifest.fe61f5f2a1459511913fd7b54cd15766.js"
+  "/simple-weight-tracker/precache-manifest.1e6b72621ba00a03b72aa16b64cafc42.js"
 );
 
 workbox.core.setCacheNameDetails({prefix: "simple-weight-tracker"});
