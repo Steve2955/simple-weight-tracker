@@ -4,16 +4,16 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/simple-weight-tracker/Demo.jpg"
   },
   {
-    "revision": "fa3575bcc641ad03c288",
+    "revision": "bc052806f926bc8bb036",
     "url": "/simple-weight-tracker/css/app.5558c664.css"
   },
   {
-    "revision": "7817868180bd4ae1a7d1d61a3e18529d",
+    "revision": "9a72f2eb7bd9067ddae16144511e60c2",
     "url": "/simple-weight-tracker/index.html"
   },
   {
-    "revision": "fa3575bcc641ad03c288",
-    "url": "/simple-weight-tracker/js/app.2bf01765.js"
+    "revision": "bc052806f926bc8bb036",
+    "url": "/simple-weight-tracker/js/app.20276768.js"
   },
   {
     "revision": "3b8eec3dc72d089ed88a",
